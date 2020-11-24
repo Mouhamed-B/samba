@@ -1,0 +1,77 @@
+<form action="/profils/" method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate="">
+    <fieldset>
+        {% csrf_token %}
+        <div class="form-group ">
+            
+            <label class="col-sm-2 control-label ">
+                Téléphone
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="phone" class="form-control" type="text" value="">
+                
+                
+                
+                
+            </div>
+        </div>
+        
+        <div class="form-group">
+            
+            <label class="col-sm-2 control-label ">
+                Civilité
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <select class="form-control" name="civility">
+                    
+                    
+                    
+                    <option value="Mr">Monsieur</option>
+                    
+                    
+                    
+                    <option value="Mlle">Mademoiselle</option>
+                    
+                    
+                    
+                    <option value="Mme">Madame</option>
+                    
+                    
+                </select>
+                
+            </div>
+        </div>
+        
+        <div class="form-group ">
+            
+            <label class="col-sm-2 control-label ">
+                Avatar
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="avatar" type="file" value="">
+                
+            </div>
+        </div>
+        
+        <div class="form-group ">
+            
+            <label class="col-sm-2 control-label ">
+                Addresse
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="address" class="form-control" type="text" value="">    
+            </div>
+        </div>
+        
+        <div class="form-actions pl-3">
+            <button class="btn btn-primary" title="" >Enregistrer</button>
+        </div>
+    </fieldset>
+</form>

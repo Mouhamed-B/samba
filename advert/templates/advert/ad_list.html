@@ -1,0 +1,20 @@
+<div id="ad-list" class="col-12 p-2">
+    <div class="row">
+        {% for ad in ads %}
+        <div id="ad-card" class="row {% cycle 'col-md-6' 'col-md' %} radius">
+            <div class='row mx-0 px-0 col-12'>
+                <span class="col-3 px-1 br-s-1"><i class="fas fa-user"></i> {{ad.author.username}}</span><span class="col-4 px-1 br-s-1">{{ad.category}}</span><span class="col-5 px-1">{{ad.created|date:"d M Y"}}</span>
+            </div>
+            <img class="bd-placeholder-img bd-placeholder-img-lg d-block col-12 p-0 col-md-5" src="{{ ad.image.url }}" width="100%" height="100%">
+            <div class="col-12 ad-text col-md-7">
+                <button class="btn bg-blue my-2">Consulter</button>
+                <p>{{ad.description|slice:":200"|add:"......."}}</p>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="w-100"></div>
+        {% endif %}
+        
+        {% endfor %}
+    </div>
+</div>

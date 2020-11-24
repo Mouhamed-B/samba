@@ -1,0 +1,51 @@
+{% extends 'advert/main.html' %}
+{% block Main %}
+<main class='custom-container-lg'>
+    {% include 'advert/search-box.html' %}
+    {% include 'advert/breadcrumbs.html' %}
+    <div id="content" class="py-3 mb-3">
+        <div id="ad-detail" class="mx-0 row mb-3">
+            <img class="bd-placeholder-img bd-placeholder-img-lg d-block col-12 col-md-5 px-0" src="{{ ad.image.url }}" width="100%" height="100%"></img>
+            <div class="col-12 col-md">
+                <h4>{{ad.title}}</h4>
+                <div class="col-12 mb-3">
+                    <div id="desc" class="p-3 radius">
+                        <h5>Description</h5>
+                        <p>{{ad.description}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="radius p-3">
+                    <h5>Caracteristiques</h5>
+                    <ul>
+                        <li>Detail 1</li>
+                        <li>Detail 2</li>
+                        <li>Detail 3</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="radius p-3">
+                    <h5 class="ml-4">Annonceur</h5>
+                    <div class="row px-0 mt-4">
+                        <div style="text-align: center;" class="col-4">
+                            <i class="fas fa-user fa-7x"></i>
+                            <div style="font-size:larger;" class="mt-4">
+                                <ul class="list-unstyled">
+                                    <li>Nom</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button class="btn bg-blue col nowrap mb-4"><i class="fas fa-envelope"></i> Contacter</button>
+                            <button class="btn bg-blue col  nowrap mb-4"><i class="fas fa-paper-plane"></i>  Message Direct</button>
+                        </div>
+                    </div>
+                    
+                </div>                        
+            </div>
+        
+    </div>
+</main>
+{% endblock Main %}

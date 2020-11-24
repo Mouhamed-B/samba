@@ -1,0 +1,177 @@
+{% extends 'advert/main.html' %}
+
+{% block Main %} 
+<main id='main-content' class='custom-container-lg mb-5'>
+    {% include 'advert/search-box.html' %}
+    {% include 'advert/breadcrumbs.html' %}
+    <div class="row mb-3">
+        <div id="user-card" class="col-6 col-md-5 px-0 mr-3">
+            <div class="p-3 radius">
+                <h4>Profil</h4>
+                {% if user.profile.avatar.url %}
+                <img class="bd-placeholder-img bd-placeholder-img-lg d-block col-12 mb-3 col-md-4" src="{{ user.profile.avatar.url }}" width="100%">
+                {% else %}
+                <i class="fas fa-user col-12 fa-6x my-4 mx-auto" style="text-align: center;"></i>
+                {% endif %}
+                <table width="100%">
+                    <tr>
+                        <td><label for="">Membre depuis</label></td>
+                        <td><b>{{user.date_joined|date:"F Y"}}</b></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Nom d'utilisateur</label></td>
+                        <td><b>{{user.username}}</b></td>
+                    </tr>
+                    {% if self %}
+                    <tr>
+                        <td><label for="">Email</label></td>
+                        <td><b>{{user.email}}</b></td>
+                    </tr>
+                    <tr>
+                        <td><button class="btn bg-blue mt-3 btn-lg">Modifier</button></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td><button class="btn bg-blue mt-3 btn-lg" data-toggle="modal" data-target="#contactModal">Contacter</button></td>
+                        {% if request.user.is_authenticated %}
+                        <td><button class="btn bg-blue mt-3 btn-lg">Message direct</button></td>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        <div class="col col-md px-0">
+            <div class="p-3 radius">
+                <h4>Statistiques</h4>
+                {% if user.profile %}
+                <div id="stats" class="row">
+                    <div class="col-7">
+                        <table width="85%">
+                            <tr>
+                                <td><b>Nombres d'annonces publiées</b></td>
+                                <td>{{user.ad_set.all|length}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Nombres d'annonces disponibles</b></td>
+                                <td>{{user.ad_set.all|length}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Nombre d'annonces sponsorisées</b></td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>                
+                {% elif self %}
+                <h4 style="color:lightgray;" class="my-5">Vous ne possedez pas de profil d'annonces</h4>
+                <button class="btn bg-outline-blue btn-lg"  data-toggle="modal" data-target="#formModal">Créer</button>
+                {% else %}
+                <h4 style="color:lightgray;" class="my-5">Ce compte n'est pas un profil d'annonces</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3" id="ad-list">
+        <div id="my-adverts" class="p-3 col-12 radius">
+            <h4>Annonces</h4>
+            <button class="btn bg-outline-blue mb-2 btn-lg"  data-toggle="modal" data-target="#formModal">Publier une annonce</button>
+            {% if user.ad_set.all|length > 0 %}
+            <div class="row mx-0">
+                {% for ad in user.ad_set.all %}
+                <div id="ad-card" class="row {% cycle 'col-md-6' 'col-md' %} radius">
+                    <div class='row mx-0 col-12'>
+                        <span class="col-3 br-s-1"><i class="fas fa-user"></i> {{user.username}}</span><span class="col-4 br-s-1">{{ad.category}}</span><span class="col-5 px-1">{{ad.created}}</span>
+                    </div>
+                    <img class="bd-placeholder-img bd-placeholder-img-lg d-block col-12 p-0 col-md-5" src="{{ ad.image.url }}" width="100%" height="100%">
+                    <div class="col-12 ad-text col-md-7">
+                        <button class="btn bg-blue my-2">Consulter</button>
+                        <p>{{ad.description|slice:":200"|add:"......."}}</p>
+                    </div>
+                </div>
+                {% if forloop.counter0 > 0 and forloop.counter0|divisibleby:2 %}
+                <div class="w-100"></div>
+                {% endif %}
+                
+                {% endfor %}
+            </div>
+            {% else %}
+            <h4 style="color:lightgray;" class="my-5">Aucune annonce publiée</h4>
+            {% if self %}
+            <button class="btn bg-outline-blue btn-lg"  data-toggle="modal" data-target="#formModal">Publier une annonce</button>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div> 
+    <div id="my-businnesses" class="p-3 radius mb-3 ">
+        <h4>Businness</h4>
+        {% if user.profile.has_company %}
+        <div class="row col-12  mx-0">
+            <div id="ad-card" class="row col-md">
+            </div>
+        </div>
+        {% else %}
+        {% if self %}
+        <h4 style="color:lightgray;" class="my-5">Vous ne possedez pas de profil professionel</h4>
+        {% comment %} <button class="btn bg-outline-blue btn-lg"  data-toggle="modal" data-target="#formModal">Créer</button> {% endcomment %}
+        {% else %}
+        <h4 style="color:lightgray;" class="my-5">Ce compte n'est pas un profil professionel</h4>
+        {% endif %}
+        {% endif %}
+        
+    </div>
+</main>
+<!-- Form Modal -->
+{% if self %}
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {% if user.profile %}
+                    Publier une annonce
+                    {% else %}
+                    Créer un profil d'annonces
+                    {% endif %}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% if user.profile %}
+                {% include 'advert/ad_create_form.html' %}
+                {% else %}
+                {% include 'panel/profile_create_form.html' %}
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% comment %} {% else %}
+<!--contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="modelTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cont</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Body
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %} {% endcomment %}
+{% endblock Main %}

@@ -1,0 +1,19 @@
+div#ad-card{
+	margin: .5rem!important;
+    padding: 0!important;
+    max-height: 235px;
+}
+div#ad-card svg{
+    padding: 0!important;
+    height: 10vw;
+}
+
+div#ad-detail svg{
+    padding: 0!important;
+    height: 17vw;
+    width: 17vw;
+}
+
+.fit-content{
+    height: fit-content;
+}

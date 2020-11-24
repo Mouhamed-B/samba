@@ -1,0 +1,76 @@
+{% extends 'advert/main.html' %}
+
+{% block Main %}
+<main id='main-content' class="custom-container-lg mb-5 pt-5">
+<div class="row mb-3 radius">
+    <div class="col-3 mr-3 px-0 br-s-1">
+        <div class="p-3 white-menu">
+            <ul class="navbar-nav mb-5 pb-5 mb-lg-0">
+                <li class="nav-item pb-3">
+                  <span>Sections</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" disabled>Utilisateurs</a> 
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" disabled>Profils</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Catégories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Annonces</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col px-0">
+        <div class="p-3">
+            <h1>Categories</h1>
+            <button class="btn bg-outline-blue" data-toggle="modal" data-target="#categoryForm">Ajouter</button>
+            <div class="row mt-3">
+                {% for c in categories %}
+                <div class="col-3 radius p-3 mr-2">
+                    <h6 class="nowrap">{{c.title}}</h6>
+                    <div class="row">
+                        <span class="col br-s-1" style="font-size: larger;">{{c.ad_set|length}} <i class="fas fa-ad"></i></span>
+                        <span class="col br-s-1"><button type="button" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></button></span>
+                        <span class="col"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></span>
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="categoryForm" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter une categorie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <form action="/categories/" method="post" onsubmit="submitForm(e)">
+            <div class="modal-body">
+                
+                    <div class="form-group">
+                      <label for="title">Libellé</label>
+                      <input type="text" name="title" id="title" class="form-control" placeholder="" aria-describedby="helpId">
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn bg-blue">Enregistrer</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock Main %}

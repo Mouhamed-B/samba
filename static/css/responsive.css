@@ -1,0 +1,19 @@
+div#ad-card{
+	margin: .5rem!important;
+    padding: 0!important;
+    max-height: 298px;
+}
+div#ad-card img{
+    padding: 0!important;
+    height: auto;
+    max-height: 256px;
+}
+
+.fit-content{
+    height: fit-content;
+}
+
+div#ad-card>div.row:first-child{
+    border-bottom: 1px solid lightgray;
+    height: fit-content;
+}

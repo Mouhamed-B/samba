@@ -1,0 +1,12 @@
+<div id="category-list" class="white-menu col-0 col-md-3 mr-3 radius py-4 pl-md-1 ">
+          <ul class="navbar-nav mb-5 pb-5 mb-lg-0" id="Categories">
+            <li class="nav-item pb-3">
+              <span>Catégories</span>
+            </li>
+            {% for category in categories %}
+            <li class="nav-item active">
+                <a class="nav-link" href="#">{{ category.title }}<span class="sr-only">(current)</span></a>
+            </li>
+            {% endfor %}
+          </ul>
+</div>

@@ -1,31 +1,29 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib import auth
+from samba.settings import AVATAR_PATH
 # Create your models here.
 
-class User(auth.models.User):
+class Profile(models.Model):
     CIVILITY = (
         ('Mr','Monsieur'),
         ('Mlle','Mademoiselle'),
         ('Mme','Madame')
     )
-
-    avatar = models.ImageField(verbose_name="Avatar", upload_to=None, height_field=None, width_field=None, max_length=200)
-    civility = models.CharField(verbose_name="Civilité", max_length=12,choices=CIVILITY)
-    address = models.CharField(verbose_name="Addresse", max_length=200)
-    phone = models.CharField(verbose_name="Téléphone", max_length=200)
-    has_company = models.BooleanField(verbose_name="Est gérant", default=False)
-    companies = models.ManyToManyField("panel.Enterprise", verbose_name="Compagnies")
+    user = models.OneToOneField("auth.User", verbose_name=("Compte"), on_delete=models.CASCADE)
+    avatar = models.ImageField(verbose_name="Avatar", upload_to=AVATAR_PATH, height_field=None, width_field=None, max_length=200, null=True)
+    civility = models.CharField(verbose_name="Civilité", max_length=12,choices=CIVILITY, default=CIVILITY[0])
+    address = models.CharField(verbose_name="Addresse", max_length=200, null=True)
+    phone = models.CharField(verbose_name="Téléphone", max_length=200, null=True)
 
     class Meta:
-        verbose_name = "Utilisateur"
-        verbose_name_plural = "Utilisateurs"
+        verbose_name = "Profil"
+        verbose_name_plural = "Profils"
 
     def __str__(self):
-        return self.get_full_name()
+        return self.user.get_full_name()
 
     def get_absolute_url(self):
-        return reverse("User_detail", kwargs={"pk": self.pk})
+        return reverse("Profile_detail", kwargs={"pk": self.pk})
 
 
 class Enterprise(models.Model):
@@ -41,15 +39,16 @@ class Enterprise(models.Model):
     )
 
     name = models.CharField(verbose_name='Nom', max_length=100)
+    avatar = models.ImageField(verbose_name="Avatar", upload_to=AVATAR_PATH, height_field=None, width_field=None, max_length=200, null=True)
     legal_status = models.CharField(verbose_name='Statut légal', max_length=100, choices=LEGAL_STATUSES, default=LEGAL_STATUSES[6])
-    address = models.CharField(verbose_name="Addresse", max_length=200)
-    phone = models.CharField(verbose_name="Téléphone", max_length=200)
+    address = models.CharField(verbose_name="Addresse", max_length=200, null=True)
+    phone = models.CharField(verbose_name="Téléphone", max_length=200, null=True)
     created = models.DateTimeField(verbose_name='Date inscription', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Dernière modification', auto_now=True)
-    staff = models.ManyToManyField("panel.User", verbose_name="Staff")
+    admin = models.OneToOneField("auth.User", verbose_name="Administrateur", on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        #save current user in staff
+        #save current profile in staff
         super(Enterprise, self).save(*args, **kwargs)
 
     class Meta:

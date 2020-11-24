@@ -1,0 +1,73 @@
+<form action="/users/" method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate="">
+    {% csrf_token %}
+    <fieldset>
+        
+        <div class="form-group ">
+            
+            <label class="col-sm-2 control-label ">
+                Prénom
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="first_name" class="form-control" type="text" value="">
+                
+            </div>
+        </div>
+        
+        <div class="form-group ">
+            
+            <label class="col-sm-2 control-label ">
+                Nom
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="last_name" class="form-control" type="text" value="">
+                
+            </div>
+        </div>
+        
+        <div class="form-group ">
+            
+            <label class="col-sm-2 control-label ">
+                Adresse électronique
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="email" class="form-control" type="email">
+            </div>
+        </div>
+        
+        <div class="form-group ">
+            
+            <label class="col-sm-10 control-label ">
+                Nom d’utilisateur
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="username" class="form-control" type="text" value="">
+                
+                <span class="help-block">150 caractères maximum. Uniquement des lettres, nombres et les caractères «&nbsp;@&nbsp;», «&nbsp;.&nbsp;», «&nbsp;+&nbsp;», «&nbsp;-&nbsp;» et «&nbsp;_&nbsp;».</span>
+                
+            </div>
+        </div>
+        
+        <div class="form-group ">
+            
+            <label class="col-sm-10 control-label ">
+                Mot de passe
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="password" class="form-control" type="password">
+            </div>
+        </div>
+        <div class="form-actions pl-3 mb-2">
+            <button class="btn btn-primary" type='submit' >Enregistrer</button>
+        </div>
+    </fieldset>
+</form>

@@ -31,12 +31,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'knox',
+    'advert',
+    'panel',
+
 ]
 
 MIDDLEWARE = [
@@ -66,6 +73,11 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+
+}
 
 WSGI_APPLICATION = 'samba.wsgi.application'
 
@@ -99,11 +111,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Accounts URLs
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL ='/'
+LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-fr'
 
 TIME_ZONE = 'UTC'
 
@@ -117,4 +133,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 STATIC_URL = '/static/'
+
+AVATAR_PATH = "static/images/avatar/"
+
+ADS_IMAGES_PATH = "static/images/ads/"

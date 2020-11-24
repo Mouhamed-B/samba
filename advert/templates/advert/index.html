@@ -1,0 +1,18 @@
+{% extends 'advert/main.html' %}
+
+{% block Main %}
+{% include 'advert/carousel.html' %}
+<main id='main-content' class="custom-container-lg pt-4 pb-5">
+    {% include 'advert/search-box.html' %}
+      <div id="content" class="row">
+        {% include 'advert/category_list.html' %}
+        <div id="main-content" class="col row">
+          <div id="sponsor-list" class="col-12 radius ">
+            <h1>Contenu sponsorisé</h1>
+          </div>
+          {% include 'advert/ad_list.html' %}
+        </div>
+      </div>
+      {{form.as_view}}
+</main>
+{% endblock Main %}

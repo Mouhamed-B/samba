@@ -1,0 +1,73 @@
+#sponsor-list h1{
+	position: relative;
+	top: 50%;
+	text-align: center;
+}
+header nav{
+	font-size: larger;
+	z-index: 51;
+}
+nav div.container-lg{
+	position: static;
+}
+.navbar-menu{
+	padding-bottom: 15%;
+	height: 100%; /* 100% Full-height */
+	width: 0; /* 0 width - change this with JavaScript */
+	position: fixed; /* Stay in place */
+	z-index: 50; /* Stay on top */
+	top: 82px;
+	left: 0;
+	background-color:  #3b88c3;
+	overflow-x: hidden; /* Disable horizontal scroll */
+	transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+	font-size: larger;
+}
+.navbar-menu div.row{
+	background-color: whitesmoke;
+	opacity: 60%;
+}
+.navbar-brand img{
+	height: 56px;
+	width: 56px;
+}
+div.modal-backdrop{
+	z-index: 40;
+}
+div#u-info{
+	font-size: initial;
+}
+div#sponsor-list{
+	min-height: 22.5vw;
+}
+
+div#search-box>form{
+	font-size: 8px!important;
+}
+/* main div.row{
+	margin-bottom: 1rem !important;
+} */
+div.carousel-item img, div.carousel-item svg{
+	object-fit: cover;
+	width: 100%;
+}
+div#main-content>div{
+	margin-bottom: 1rem;
+}
+div#category-list{
+	height: fit-content;
+	transition: 0.4s;
+}
+footer a{
+	color: white;
+}
+div.footer-copyright {
+	background-color: #255479!important;
+}
+table label{
+	margin-bottom: 0!important;
+}
+table tr{
+	margin-bottom: 1rem;
+	margin-right: 1rem;
+}

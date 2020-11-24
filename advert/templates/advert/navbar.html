@@ -1,0 +1,110 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg shadow-sm sticky-top navbar-light bg-light" id="navbar">
+  <div class="container-lg" id="navbar-content">
+    <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'images/s.svg' %}" alt=""></a>
+    <a href="#" id="brand" class="navbar-brand d-none mr-auto ml-auto">Samba</a>
+    <button class="navbar-toggler" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="blue-menu navbar-menu" id="nav-menu">
+      <!-- <button class="navbar-toggler off" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <ul class="navbar-nav pb-5 pb-lg-0" id="Explorer">
+        <li class="nav-item d-lg-none pb-3">
+          <span>Explorer</span>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'index' %}">Acceuil<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">A propos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1">Contact</a>
+        </li>
+      </ul>
+      <div class="u-menu mb-3" id="u-menu">
+        <a class="btn btn-default" id="connect-btn" data-toggle="collapse" href="#u-info" role="button" aria-expanded="false" aria-controls="u-info">
+        {% if request.user.is_authenticated %}
+          <b id="{{request.user.id}}" class="username">{{request.user.username}}</b>
+        {%else%}
+          <i class="fas fa-user"></i> S'authentifier
+        {%endif%}
+        </a>
+        <div id="u-info" class="card p-3 collapse">
+          {% if request.user.is_authenticated %}
+            <a class="dropdown-item" href="{% url 'panel' usr=request.user.username %}">Profil</a>
+            <div class="dropdown-divider"></div>
+            {% if request.user.is_staff %}
+            <a class="dropdown-item" href="{% url 'panel_dashboard'%}">Administration</a>
+            <div class="dropdown-divider"></div>
+            {% endif %}
+            <a class="dropdown-item" href="{% url 'panel_logout' %}">Deconnexion</a>
+          {% else %}
+            <button type="button" class="btn bg-blue nowrap" data-toggle='modal' data-target='#signinForm'>Se connecter</button>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" data-toggle="modal" data-target="#signupForm">S'inscrire</a>
+          {% endif %}
+        </div>        
+      </div>
+    </div>
+  </div>
+</nav>
+{% if not request.user.is_authenticated %}
+<!-- Modal -->
+<div class="modal fade" id="signupForm" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">S'inscrire</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% include 'panel/user_create_form.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="signinForm" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Se connecter</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <form class="px-3 py-3" method='post' action="{% url 'panel_login' %}">
+      <div class="modal-body">
+        
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleDropdownFormEmail1">Nom d'utilisateur</label>
+            <input type="text" required class="form-control" name='username' id="exampleDropdownFormEmail1" placeholder="Nom d'utilisateur">
+          </div>
+          <div class="form-group">
+            <label for="exampleDropdownFormPassword1">Mot de passe</label>
+            <input type="password" required class="form-control" name='password' id="exampleDropdownFormPassword1" placeholder="Mot de Passe">
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}

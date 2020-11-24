@@ -1,0 +1,10 @@
+<nav aria-label="breadcrumb radius ">
+    <ol class="breadcrumb">
+      {% for b in breadcrumbs|slice:":-1" %}
+      <li class="breadcrumb-item"><a href="{{b.link}}">{{b.text}}</a></li>
+      {% endfor %}
+      {% with breadcrumbs|last as last %}
+      <li class="breadcrumb-item active" aria-current="page">{{last}}</li>
+      {% endwith %}
+    </ol>
+</nav>

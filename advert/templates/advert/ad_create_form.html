@@ -1,0 +1,88 @@
+<form action="/annonces/" method="POST" id='ad-form' enctype="multipart/form-data" class="form-horizontal" novalidate="">
+    <fieldset>
+        {% csrf_token %}
+        <div class="form-group ">
+            
+            <label class="col-sm-2 control-label ">
+                Titre
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input name="title" class="form-control" type="text" value="">
+
+            </div>
+        </div>
+
+        <div class="form-group horizontal-checkbox ">
+            
+            <label class="col-sm-2 control-label ">
+                Sponsorisé
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <input type="checkbox" name="sponsorised" value="true">
+ 
+            </div>
+        </div>
+        
+
+        <div class="form-group ">
+            
+            <label class="col-sm-2 control-label ">
+                Description
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <textarea name="description" class="form-control"></textarea>
+                
+            </div>
+        </div>
+        
+
+        <div class="custom-file w-75 ml-3 mb-3">
+            <input type="file" class="custom-file-input" name="image" id="customFile">
+            <label class="custom-file-label"  for="customFile">Intégrer une Image</label>
+        </div>
+
+        <div class="form-group">
+            
+            <label class="col-sm-2 control-label ">
+                Catégorie
+            </label>
+            
+            
+            <div class="col-sm-10">
+                <select class="form-control" name="category">
+      
+                    <option value="" selected="">--------</option>
+                  
+
+                      {% for c in categories %}
+                        <option value="{{c.id}}">{{c.title}}</option>
+                      {% endfor %}
+                  
+                </select>
+                
+                <select name="author" hidden>
+                    <option value="{{request.user.id}}"  selected>{{request.user.username}}</option>
+                </select>
+            </div>
+        </div>
+        {% comment %} <select class="form-control" name="author">
+      
+                    <option value="" selected="">--------</option>
+                  
+
+                      
+                        <option value="1">admin</option>
+                      
+                  
+                </select> {% endcomment %}
+        <div class="form-actions mb-3">
+            <button class="btn btn-primary ">Publier</button>
+        </div>
+    </fieldset>
+</form>

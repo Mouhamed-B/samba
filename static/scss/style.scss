@@ -1,0 +1,94 @@
+//variables
+$blue: #3b88c3;
+
+.bg-blue{
+    background-color: $blue!important;
+    color: white!important;
+}
+.bg-outline-blue{
+    background-color: white!important;
+    color: $blue!important;
+    border: 1px solid $blue!important;
+    &:hover{
+        @extend .bg-blue ;
+    }
+}
+@mixin menu-bp($isNavbar){
+    @if $isNavbar == 1{
+        @media (max-width: 992px) { 
+            @content;
+        }
+    }
+    @else{
+        @content;
+    }
+}
+
+@mixin menu($color,$background,$text,$isNavbar){
+    .#{$color}-menu{         
+
+        background-color:$background ;
+        .dropdown-toggle::after{
+            display: none;
+        }
+        ul{
+            padding: 0% 5%;
+            span{
+                color: $text;
+                font-size: 1.5em;
+            }
+            @include menu-bp($isNavbar){
+                a{
+                    color: $text!important;
+                }
+                a:hover{
+                    background-color:$text;
+                    font-size: bold;
+                    color: $background!important;
+                }
+                a[disabled]{
+                    background-color: $background;
+                    color: lightgray!important;
+                }
+                li{
+                    border-bottom: 2px dotted $text!important;
+                    
+                }
+                li:first-child{
+                    border-bottom: 4px solid $text!important;
+                }
+                border-bottom: 4px solid $text;
+            }
+        }
+    }
+} 
+
+
+@include menu('white',white,$blue,0);
+@include menu('blue',$blue,white,1);
+/*
+.menu{
+    @if $suffix == -md{
+        $color: $blue;
+        $background: white;
+    }
+    ul{
+        padding: 0% 5%;
+        a{
+            color: white!important;
+        }
+        a:hover{
+            background-color: #2a618b;
+            color: white;
+        }
+        li{
+            border-bottom: 2px dotted $blue;
+        }
+        li:first-child, li:last-child{
+            border-bottom: 4px solid $blue;
+        }
+    }
+}
+*/
+
+@import '../../frontend/node_modules/bootstrap/scss/bootstrap.scss'
