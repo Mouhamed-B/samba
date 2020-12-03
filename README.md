@@ -1,4 +1,5 @@
 # samba
+**MISES JOURS EN COURS**
 DESACTIVER ADBLOCK POUR L'AFFICHAGE DE CERTAINS CONTENUS
 
 ## api urls (interface rest_framework)
@@ -15,5 +16,3 @@ DESACTIVER ADBLOCK POUR L'AFFICHAGE DE CERTAINS CONTENUS
 ## comptes crées
 compte superuser (avec profil particulier) => admin|mdp:adminadmin
 compte (pas de profil créee, a toujours le choix) => mouhamed|mdp:mouhamed
-
-**MISES JOURS EN COURS**
