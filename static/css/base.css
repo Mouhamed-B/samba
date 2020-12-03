@@ -92,7 +92,7 @@ html,body{
         background-color: #3b88c3;
         color: white;
     }
-    div.dropdown-menu{
+    nav div.dropdown-menu{
         width: 20vw!important;
     }
     div#u-info{
@@ -124,6 +124,10 @@ html,body{
     
 }
 
+.col-24-p{
+    flex: 0 0 24%;
+    max-width: 24%;
+}
 
 div.radius{
     border-radius: .5rem;

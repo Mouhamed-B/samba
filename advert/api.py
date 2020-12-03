@@ -24,4 +24,5 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-    permission_classes = [IsAdminUserOrReadOnly]
+    def get_permission_class(self):
+        return [permissions.IsAdminUser] if self.action in ('create','update','partial_update','destroy') else [permissions.AllowAny]

@@ -18,13 +18,13 @@
           <a class="nav-link" href="{% url 'index' %}">Acceuil<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="#">A propos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" tabindex="-1">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='#' data-target="#formModal" data-toggle='modal'>Poster une annonce</a>
         </li>
       </ul>
       <div class="u-menu mb-3" id="u-menu">
@@ -54,7 +54,37 @@
     </div>
   </div>
 </nav>
-{% if not request.user.is_authenticated %}
+{% if request.user.is_authenticated %}
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {% if request.user.profile %}
+                    Publier une annonce
+                    {% else %}
+                    Créer un profil d'annonces
+                    {% endif %}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% if request.user.profile %}
+                {% include 'advert/ad_create_form.html' %}
+                {% else %}
+                {% include 'panel/profile_create_form.html' %}
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+{% else %}
 <!-- Modal -->
 <div class="modal fade" id="signupForm" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -86,23 +116,23 @@
           </button>
       </div>
       <form class="px-3 py-3" method='post' action="{% url 'panel_login' %}">
-      <div class="modal-body">
-        
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="exampleDropdownFormEmail1">Nom d'utilisateur</label>
-            <input type="text" required class="form-control" name='username' id="exampleDropdownFormEmail1" placeholder="Nom d'utilisateur">
-          </div>
-          <div class="form-group">
-            <label for="exampleDropdownFormPassword1">Mot de passe</label>
-            <input type="password" required class="form-control" name='password' id="exampleDropdownFormPassword1" placeholder="Mot de Passe">
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="submit" class="btn btn-primary">Se connecter</button>
-      </div>
+        <div class="modal-body">
+          
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleDropdownFormEmail1">Nom d'utilisateur</label>
+              <input type="text" required class="form-control" name='username' id="exampleDropdownFormEmail1" placeholder="Nom d'utilisateur">
+            </div>
+            <div class="form-group">
+              <label for="exampleDropdownFormPassword1">Mot de passe</label>
+              <input type="password" required class="form-control" name='password' id="exampleDropdownFormPassword1" placeholder="Mot de Passe">
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary">Se connecter</button>
+        </div>
       </form>
     </div>
   </div>

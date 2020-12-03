@@ -27,15 +27,18 @@
     <div class="col px-0">
         <div class="p-3">
             <h1>Categories</h1>
-            <button class="btn bg-outline-blue" data-toggle="modal" data-target="#categoryForm">Ajouter</button>
-            <div class="row mt-3">
+            <div class='row'>
+                <button class="btn bg-outline-blue col-2" data-toggle="modal" data-target="#categoryForm">Ajouter</button>
+                <div class='offset-2 col-5' id='alert'></div>
+            </div>
+            <div class="row mt-3" id='c-cards'>
                 {% for c in categories %}
-                <div class="col-3 radius p-3 mr-2">
+                <div id='c-card' data-index="{{c.id}}" class="col-24-p radius p-3 mr-2 mb-2">
                     <h6 class="nowrap">{{c.title}}</h6>
                     <div class="row">
-                        <span class="col br-s-1" style="font-size: larger;">{{c.ad_set|length}} <i class="fas fa-ad"></i></span>
-                        <span class="col br-s-1"><button type="button" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></button></span>
-                        <span class="col"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></span>
+                        <span class="col br-s-1" style="font-size: larger;">{{c.ad_set.all|length}} <i class="fas fa-ad"></i></span>
+                        <span class="col br-s-1"><button type="button" data-method='put' class="btn btn-sm btn-warning"><i class="far fa-edit"></i></button></span>
+                        <span class="col"><button type="button" data-method='delete' class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></span>
                     </div>
                     
                 </div>
@@ -55,7 +58,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
-            <form action="/categories/" method="post" onsubmit="submitForm(e)">
+            <form action="/categories/" method="post" id='c-form'>
+            {% csrf_token %}
             <div class="modal-body">
                 
                     <div class="form-group">

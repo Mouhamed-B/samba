@@ -1,5 +1,5 @@
 from .models import Profile
-from .test_func import is_staff
+from .tests import is_staff
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate
@@ -40,18 +40,21 @@ def index(request,usr):
     ]
     return render(request, template_name,context)
 
-@user_passes_test(is_staff,login_url='/login')
-def panel(request):
-    template_name = 'panel/admin.html'
-    context = dict()
-    
-    #context['users'] = User.objects.all()
-    #context['std_profiles'] = Profile.objects.filter(has_company=False)
-    #context['pro_profiles'] = Profile.objects.filter(has_company=True)
-    context['i']=0
-    context['categories'] = Category.objects.all() 
 
-    return render(request, template_name, context)
+def panel(request):
+    if request.user.is_staff:
+        template_name = 'panel/admin.html'
+        context = dict()
+        
+        #context['users'] = User.objects.all()
+        #context['std_profiles'] = Profile.objects.filter(has_company=False)
+        #context['pro_profiles'] = Profile.objects.filter(has_company=True)
+        context['i']=0
+        context['categories'] = Category.objects.all() 
+
+        return render(request, template_name, context)
+    else:
+        raise Http404
 
 def loginPage(request):
 	if request.user.is_authenticated:

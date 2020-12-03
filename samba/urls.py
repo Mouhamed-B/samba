@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+def E404(request,exception):
+    return render(request,'advert/404.html')
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),

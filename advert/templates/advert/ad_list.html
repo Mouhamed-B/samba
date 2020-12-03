@@ -1,20 +1,54 @@
 <div id="ad-list" class="col-12 p-2">
     <div class="row">
         {% for ad in ads %}
-        <div id="ad-card" class="row {% cycle 'col-md-6' 'col-md' %} radius">
-            <div class='row mx-0 px-0 col-12'>
-                <span class="col-3 px-1 br-s-1"><i class="fas fa-user"></i> {{ad.author.username}}</span><span class="col-4 px-1 br-s-1">{{ad.category}}</span><span class="col-5 px-1">{{ad.created|date:"d M Y"}}</span>
+            <div id="ad-card" data-index='{{ ad.id }}' class="row {% cycle 'col-md-6' 'col-md' %} radius">
+                <div class='row mx-0 px-0 col-12'>
+                    <span class="col-3 px-1 br-s-1"><i class="fas fa-user"></i> {{ad.author.username}}</span>
+                    <span class="col-3 px-1 br-s-1">{{ad.category}}</span>
+                    <span class="col-5 px-1">{{ad.created|date:"d M Y"}}</span>
+                    {% if ad.author == request.user %}
+                        <div class="dropdown col-1 px-0 dropleft">
+                            <button class="btn btn-sm dropdown-toggle " type="button" id="triggerId{{ad.id}}" data-toggle="dropdown" aria-haspopup="true"aria-expanded="false"></button>
+                            <div class="dropdown-menu w-50" aria-labelledby="triggerId{{ad.id}}">
+                                <button class='dropdown-item btn-sm'><i class="fas fa-minus-circle"></i> Retirer</button>
+                                <button type="button" data-method='put' class="dropdown-item  btn-sm"><i class="far fa-edit"></i> Modifier</button>
+                                <button type="button" data-method='delete' class="dropdown-item btn-sm"><i class="far fa-trash-alt"></i> Supprimmer</button>
+                                <div class='dropdown-divider'></div>
+                                <button class="dropdown-item btn-sm disabled"><i class="fas fa-ad"></i> Sponsoriser</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <img class="bd-placeholder-img bd-placeholder-img-lg d-block col-12 p-0 col-md-5" src="{{ ad.image.url }}" width="100%" height="100%">
+                <div class="col-12 col-md-7">
+                    <a class="btn bg-blue my-2" href="{% url 'ad_detail' slug=ad.slug %}">Consulter</a>
+                    <p>{{ad.description|slice:":200"|add:"......."}}</p>
+                </div>
             </div>
-            <img class="bd-placeholder-img bd-placeholder-img-lg d-block col-12 p-0 col-md-5" src="{{ ad.image.url }}" width="100%" height="100%">
-            <div class="col-12 ad-text col-md-7">
-                <button class="btn bg-blue my-2">Consulter</button>
-                <p>{{ad.description|slice:":200"|add:"......."}}</p>
-            </div>
-        </div>
         {% if forloop.counter|divisibleby:2 %}
         <div class="w-100"></div>
         {% endif %}
-        
+        {%empty%}
+        <h4 style="color:lightgray;" class="my-5">Aucune autre annonce similaire</h4>
         {% endfor %}
     </div>
+</div>
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-default"></button>
+      </div>
+    </div>
+  </div>
 </div>

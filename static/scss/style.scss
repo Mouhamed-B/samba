@@ -62,10 +62,17 @@ $blue: #3b88c3;
         }
     }
 } 
-
+// @mixin col($p){
+//     .col-#{$p}p{
+//     flex: 0 0 $p%;
+//     max-width: $p%;
+//     }
+// }
 
 @include menu('white',white,$blue,0);
 @include menu('blue',$blue,white,1);
+
+
 /*
 .menu{
     @if $suffix == -md{
